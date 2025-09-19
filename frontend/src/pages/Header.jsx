@@ -12,15 +12,20 @@ function Header() {
     
     const checkLogin = async () => {
       try {
-        const res = await fetch(`${backendUrl}getProfile`, {
+        const res = await fetch(`${backendUrl}checkAuth`, {
           method: "GET",
           credentials: "include", // send cookies
         });
-        if (res.ok) {
-          setLoggedIn(true);
-        } else {
-          setLoggedIn(false);
-        }
+       
+       if (res.status === 200) {
+        setLoggedIn(true);
+      } else if (res.status === 401) {
+        // No token or invalid token -> Not logged in
+        //console.log("not loggedin")
+        setLoggedIn(false);
+      } else {
+        setLoggedIn(false);
+      }
       } catch {
         setLoggedIn(false);
       }
