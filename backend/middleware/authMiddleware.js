@@ -4,14 +4,15 @@ const authMiddleware = async(req, res, next) => {
 
   try {
       const token = req.cookies?.token;
-   // console.log(token)
+      
       if (!token) {
-      throw new Error("token missing")
+      return res.status(401).json({ message: "Token missing" });
       }
-      //console.log(process.env.JWT_SECRET)
+     
       const payload = jwt.verify(token,  process.env.JWT_KEY);
-     // console.log("hi1")
+     
       if (!payload?.id) {
+        
       return res.status(401).json({ message: "Invalid token payload" });
     } 
       req.user=payload;

@@ -10,7 +10,6 @@ const adminMiddleware = (req, res, next) => {
 
     if (!payload?.id) return res.status(401).json({ message: "❌ Invalid token payload" });
 
-    // ✅ No role check
     req.admin = payload;
     next();
   } catch (err) {
