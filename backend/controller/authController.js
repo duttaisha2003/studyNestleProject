@@ -25,8 +25,6 @@ const registerUser=async(req,res)=>{
 
 const loginUser=async(req,res)=>{
     try{
-      
-       // validateuser(req.body);
 
         const people=  await User.findOne({ emailId: req.body.emailId });
         if(!(req.body.emailId === people.emailId))
@@ -39,7 +37,7 @@ const loginUser=async(req,res)=>{
         const token = jwt.sign({ id:people.id,emailId:people.emailId}, process.env.JWT_KEY,{expiresIn:"10h"});
         res.cookie("token",token,{httpOnly:true,secure:true, sameSite: "lax"});
       
-      res.status(200).json({ message: "Login Successful" });
+      res.status(200).json({ message: "Login Successful" ,loggedIn:true});
     }catch(err){
         res.status(400).json({ error: err.message });
 
@@ -48,8 +46,6 @@ const loginUser=async(req,res)=>{
 
 const logoutUser=async(req,res)=>{
     try{
-        //res.cookie("token","uifhfuidhguivh");
-        //res.clearCookie("token");
         res.cookie("token",null,{expires:new Date(Date.now())});
         res.status(200).json({ message: "Logout Successfully" });
     }catch(err){
@@ -63,7 +59,6 @@ const userProfile= async(req,res)=>{
    const userId = req.user.id || req.user._id;
     
     const person = await User.findById(userId).select("-password"); 
-    // .select("-password") excludes sensitive field like password
 
     if (!person) {
       return res.status(404).json({
@@ -81,7 +76,7 @@ const userProfile= async(req,res)=>{
 //update profile
 const updateProfile=async(req,res)=>{
  try {
-    const userId = req.user.id || req.user._id; // logged-in user id
+    const userId = req.user.id || req.user._id; 
     const { name, age, gender, photo, password } = req.body;
 
     // Find user
@@ -99,7 +94,6 @@ const updateProfile=async(req,res)=>{
     if (gender) person.gender = gender;
     if (photo) person.photo = photo;
 
-    // ✅ Prefer file upload over plain string
      if (req.file) {
       const uploadRes = await uploadOnCloudinary(req.file.path);
       if (!uploadRes) {
@@ -110,14 +104,13 @@ const updateProfile=async(req,res)=>{
       }
       person.photo = uploadRes.secure_url; // ✅ Cloudinary URL
     } else if (photo) {
-      // fallback if frontend sends direct URL
+
       person.photo = photo;
     }
 
-    // If password is provided, pre-save hook will hash it
     if (password) person.password = password;
 
-    await person.save(); // ✅ triggers pre("save") hook for hashing
+    await person.save(); 
 
     return res.status(200).json({
       success: true,

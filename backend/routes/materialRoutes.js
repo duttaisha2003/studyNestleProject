@@ -14,7 +14,8 @@ router.delete("/deleteMaterial/:id", authMiddleware, deleteMaterial);
 router.get("/checkAuth", authMiddleware, (req, res) => {
   res.status(200).json({ 
     message: "User is authenticated", 
-    user: req.user 
+    user: req.user ,
+    loggedIn:true
   });
 });
 

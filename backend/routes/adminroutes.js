@@ -16,7 +16,7 @@ router.patch("/approve/:id", adminMiddleware,acceptMaterial );
 router.delete("/reject/:id", adminMiddleware, rejectMaterial);
 
 router.get("/checkAdmin", adminMiddleware, (req, res) => {
-  // authMiddleware sets req.user if token is valid
+ 
   res.status(200).json({ 
     message: "User is authenticated", 
     user: req.user 
