@@ -1,37 +1,10 @@
 import { Link } from "react-router";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-function Header() {
+function Header({ isAuthenticated :loggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  // Check login status on mount
-  useEffect(() => {
-    
-    const checkLogin = async () => {
-      try {
-        const res = await fetch(`${backendUrl}checkAuth`, {
-          method: "GET",
-          credentials: "include", // send cookies
-        });
-       
-       if (res.status === 200) {
-        setLoggedIn(true);
-      } else if (res.status === 401) {
-        // No token or invalid token -> Not logged in
-        //console.log("not loggedin")
-        setLoggedIn(false);
-      } else {
-        setLoggedIn(false);
-      }
-      } catch {
-        setLoggedIn(false);
-      }
-    };
-    checkLogin();
-  }, []);
 
   return (
     <header className="shadow bg-white">

@@ -3,12 +3,13 @@ import Header from "./Header";
 import Footer from "./Footer";
 import SearchStudyMaterial from "./SearchStudyMaterial";
 
-function DispStudyMaterial() {
+function DispStudyMaterial({ isAuthenticated, setIsAuthenticated }) {
   
 
   return (
     <>
-      <Header />
+      <Header  isAuthenticated={isAuthenticated} 
+        setIsAuthenticated={setIsAuthenticated}  />
     
       <SearchStudyMaterial/>
       <Footer />

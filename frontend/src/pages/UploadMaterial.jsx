@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import Header from "./Header";
 import Footer from "./Footer";
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-function StudyMaterialForm() {
+function StudyMaterialForm({ isAuthenticated, setIsAuthenticated }) {
   const navigate = useNavigate();
 
   // Form state
@@ -25,7 +25,9 @@ function StudyMaterialForm() {
         const res = await fetch(`${backendUrl}checkAuth`, {
           credentials: "include",
         });
-        if (!res.ok) {
+        const data = await res.json();
+        
+        if (!data.loggedIn) {
           navigate("/login"); // redirect if not logged in
         }
       } catch (err) {
@@ -96,7 +98,8 @@ function StudyMaterialForm() {
 
   return (
     <>
-      <Header />
+      <Header  isAuthenticated={isAuthenticated} 
+        setIsAuthenticated={setIsAuthenticated} />
       <main className="flex-grow">
         <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6">

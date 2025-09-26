@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function Contact() {
+function Contact({ isAuthenticated, setIsAuthenticated }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,7 +24,8 @@ function Contact() {
 
   return (
     <>
-      <Header />
+      <Header  isAuthenticated={isAuthenticated} 
+        setIsAuthenticated={setIsAuthenticated}  />
       <main className="flex-grow">
         <div className="min-h-screen bg-gray-100 py-12 px-6 lg:px-20 ">
           <h1 className="text-4xl font-bold text-green-800 mb-6 ">Contact Us</h1>

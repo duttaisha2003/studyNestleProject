@@ -2,10 +2,11 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function About() {
+function About({ isAuthenticated, setIsAuthenticated }) {
   return (
     <>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} 
+        setIsAuthenticated={setIsAuthenticated}   />
       <main className="flex-grow">
         <div className="min-h-screen bg-gray-100 py-12 px-6 lg:px-20">
           <h1 className="text-3xl font-bold text-green-800 mb-6">About StudyNestle</h1>
