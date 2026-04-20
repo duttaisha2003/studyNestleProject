@@ -9,6 +9,8 @@ router.post("/adminlogin",loginAdmin);
 
 router.post("/logout",logoutAdmin);
 
+router.post("/adminlogout",logoutAdmin);
+
 router.get("/pending", adminMiddleware, pendingMaterial);
 
 router.patch("/approve/:id", adminMiddleware,acceptMaterial );

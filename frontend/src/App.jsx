@@ -26,6 +26,11 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function App() {
   
    const [isAuthenticated, setIsAuthenticated] = useState(false);
+<<<<<<< HEAD
+=======
+   // FIX: added isLoading to prevent Protected from redirecting before checkAuth finishes
+   const [isLoading, setIsLoading] = useState(true);
+>>>>>>> 2c060a1 (Final  commit)
    
  useEffect(() => {
   const checkLogin = async () => {
@@ -47,6 +52,12 @@ function App() {
     } catch (error) {
       console.error("Network error while checking login:", error);
       setIsAuthenticated(false);
+<<<<<<< HEAD
+=======
+    } finally {
+      // FIX: always stop loading whether success or error
+      setIsLoading(false);
+>>>>>>> 2c060a1 (Final  commit)
     }
   };
   
@@ -61,12 +72,20 @@ function App() {
             <Route path="/signup" element={<Signup/>}></Route>
            
 
+<<<<<<< HEAD
              <Route element={<Protected isAuthenticated={isAuthenticated} />}>
+=======
+             {/* FIX: pass isLoading so Protected waits before redirecting */}
+             <Route element={<Protected isAuthenticated={isAuthenticated} isLoading={isLoading} />}>
+>>>>>>> 2c060a1 (Final  commit)
               <Route path="/upload" element={<UploadMaterial isAuthenticated={isAuthenticated} />}></Route>
               {/* Add more protected routes here */}
             </Route>
            
+<<<<<<< HEAD
             {/* <Route path="/upload" element={<UploadMaterial isAuthenticated={isAuthenticated} />}></Route> */}
+=======
+>>>>>>> 2c060a1 (Final  commit)
             <Route path="/disp" element={<DispStudyMaterial isAuthenticated={isAuthenticated} />}></Route>
             <Route path='/about' element={<About isAuthenticated={isAuthenticated} />}></Route>
             <Route path='/contact' element={<Contact isAuthenticated={isAuthenticated}  />}></Route>

@@ -1,12 +1,18 @@
+
 const express= require("express");
 const app=express();
 const bcrypt = require("bcrypt");
 const cookieParser = require('cookie-parser')
+
+const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const validateuser= require("./validator");
 const User = require('../models/user');
 const { uploadOnCloudinary } = require("../utils/cloudinary");
+
 app.use(cookieParser());
+
+
 
 const registerUser=async(req,res)=>{
     try{
@@ -15,6 +21,9 @@ const registerUser=async(req,res)=>{
 
         //req.body.password=await bcrypt.hash(req.body.password,10);
         const newUser = await User.create(req.body);
+
+       const newUser = await User.create(req.body);
+
         console.log("User created successfully:", newUser);
         res.status(200).json({ message: "user Register Successfully" });
 
@@ -35,8 +44,12 @@ const loginUser=async(req,res)=>{
             throw new Error("Invalid Credentials");
 
         const token = jwt.sign({ id:people.id,emailId:people.emailId}, process.env.JWT_KEY,{expiresIn:"10h"});
+
         res.cookie("token",token,{httpOnly:true,secure:true, sameSite: "lax"});
-      
+
+        // FIX: secure:false so cookie works on localhost (HTTP). Set to true in production (HTTPS).
+        res.cookie("token",token,{httpOnly:true,secure:false, sameSite: "lax"});
+
       res.status(200).json({ message: "Login Successful" ,loggedIn:true});
     }catch(err){
         res.status(400).json({ error: err.message });
@@ -46,8 +59,12 @@ const loginUser=async(req,res)=>{
 
 const logoutUser=async(req,res)=>{
     try{
+
         res.cookie("token",null,{expires:new Date(Date.now())});
-        res.status(200).json({ message: "Logout Successfully" });
+
+        // FIX: use clearCookie instead of setting null/expired cookie
+        res.clearCookie("token");
+  res.status(200).json({ message: "Logout Successfully" });
     }catch(err){
         res.status(400).json({ error: err.message });
     }

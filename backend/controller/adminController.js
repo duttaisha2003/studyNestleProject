@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 const express = require("express");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
@@ -9,6 +10,13 @@ const { cloudinary } = require("../utils/cloudinary"); // import your cloudinary
 
 const app = express();
 app.use(cookieParser());
+=======
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const admin = require("../models/admin");
+const StudyMaterial = require("../models/studyMaterials");
+const { cloudinary } = require("../utils/cloudinary");
+>>>>>>> 2c060a1 (Final  commit)
 
 // Admin Login
 

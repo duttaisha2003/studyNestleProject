@@ -31,7 +31,12 @@ export default function GetProfile() {
   }, []);
 
   const handleLogout = () => {
+<<<<<<< HEAD
     fetch(`${backendUrl}logout`, {
+=======
+    // FIX: updated to /userlogout to avoid conflict with admin logout route
+    fetch(`${backendUrl}userlogout`, {
+>>>>>>> 2c060a1 (Final  commit)
       method: "POST",
       credentials: "include",
     }).then(() => {

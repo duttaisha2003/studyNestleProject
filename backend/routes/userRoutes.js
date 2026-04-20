@@ -9,8 +9,21 @@ router.post("/register",registerUser);
 
 router.post("/login",loginUser);
 
+
 //logout
 router.post("/logout",logoutUser);
+
+// FIX: renamed from /logout to /userlogout to avoid conflict with admin logout route
+router.post("/userlogout",logoutUser);
+
+// FIX: moved checkAuth here from materialRoutes (this is the correct home for it)
+router.get("/checkAuth", authMiddleware, (req, res) => {
+  res.status(200).json({ 
+    message: "User is authenticated", 
+    user: req.user,
+    loggedIn: true
+  });
+});
 
 router.get("/getProfile",authMiddleware,userProfile);
 
