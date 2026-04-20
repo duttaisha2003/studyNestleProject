@@ -9,11 +9,6 @@ const { registerMaterial, getMaterials, updateMaterial, deleteMaterial } = requi
 // CRUD routes
 router.post("/registerMaterial", authMiddleware, upload.single("file"), registerMaterial); // file first stored locally
 
-const upload = require("../utils/multer");
-const { registerMaterial, getMaterials, updateMaterial, deleteMaterial } = require("../controller/materialController");
-
-// CRUD routes
-router.post("/registerMaterial", authMiddleware, upload.single("file"), registerMaterial);
 
 router.get("/getMaterial", getMaterials);
 router.patch("/updateMaterial/:id", authMiddleware, updateMaterial);

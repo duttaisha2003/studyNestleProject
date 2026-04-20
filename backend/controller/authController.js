@@ -4,7 +4,6 @@ const app=express();
 const bcrypt = require("bcrypt");
 const cookieParser = require('cookie-parser')
 
-const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const validateuser= require("./validator");
 const User = require('../models/user');
@@ -22,7 +21,6 @@ const registerUser=async(req,res)=>{
         //req.body.password=await bcrypt.hash(req.body.password,10);
         const newUser = await User.create(req.body);
 
-       const newUser = await User.create(req.body);
 
         console.log("User created successfully:", newUser);
         res.status(200).json({ message: "user Register Successfully" });
